@@ -378,13 +378,16 @@ struct Music* removeFromBegging(struct Music** headPointer) {
     struct Music* currentMusic = NULL;
     currentMusic = *headPointer;
 
-    if (*headPointer != NULL) {
+    if (getPlaylistSize(headPointer) == 1) {
+        *headPointer = NULL;
+    } else if (*headPointer != NULL) {
         *headPointer = currentMusic->next;
         // free(currentMusic);
-        return currentMusic;
     } else {
         printf("A playlist está vazia.\n");
+        return NULL;
     }
+    return currentMusic;
 }
 
 struct Music* removeFromEnding(struct Music** headPointer) {
@@ -392,7 +395,9 @@ struct Music* removeFromEnding(struct Music** headPointer) {
     struct Music* previousMusic = NULL;
     currentMusic = *headPointer;
 
-    if (*headPointer != NULL) {
+    if (getPlaylistSize(headPointer) == 1) {
+        *headPointer = NULL;
+    } else if (*headPointer != NULL) {
         while (currentMusic->next != NULL) {
             previousMusic = currentMusic;
             currentMusic = currentMusic->next;
@@ -400,17 +405,20 @@ struct Music* removeFromEnding(struct Music** headPointer) {
 
         previousMusic->next = NULL;
         // free(currentMusic);
-        return currentMusic;
     } else {
         printf("A playlist está vazia.\n");
+        return NULL;
     }
+    return currentMusic;
 }
 
 struct Music* removeFromPosition(struct Music** headPointer, int position) {
     struct Music* currentMusic = NULL;
     currentMusic = *headPointer;
 
-    if (*headPointer != NULL) {
+    if (getPlaylistSize(headPointer) == 1) {
+        *headPointer = NULL;
+    } else if (*headPointer != NULL) {
         int playlistSize = getPlaylistSize(headPointer);
         if (playlistSize >= position) {
             struct Music* currentMusic = NULL;
@@ -424,14 +432,16 @@ struct Music* removeFromPosition(struct Music** headPointer, int position) {
 
             previousMusic->next = currentMusic->next;
             // free(currentMusic);
-            return currentMusic;
 
         } else {
             printf("A posição passada (%i) é maior do que o tamanho total da playlist (%i).\n", position, playlistSize);
+            return NULL;
         }
     } else {
         printf("A playlist está vazia.\n");
+        return;
     }
+    return currentMusic;
 }
 
 // register the new action in a struct and return it

@@ -1,7 +1,0 @@
-if else do break while true false int char bool float
-            
-afsdf 345 486.0
-
-! - || && + < > <= >= / * == !=
-
-; ( ) [ ] { } =
